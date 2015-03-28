@@ -33,9 +33,8 @@ public class GameController {
     }
 
     @RequestMapping(value = "/")
-    @ResponseBody
     public String index() {
-        return "Welcome to the Lords of the Ants!";
+        return "status";
     }
 
     @RequestMapping(value = "/players", method = RequestMethod.POST)
@@ -51,7 +50,8 @@ public class GameController {
                 } else {
                     Player player = playerStore.addNew(request.getName().trim());
                     response.reportSuccess("User created.");
-                    response.setToken(player.token);
+                    response.setToken(player.getToken());
+                    response.setSlot(player.getSlot());
                 }
             }
         } else {
@@ -66,7 +66,7 @@ public class GameController {
     public GetAllPlayersResponse getAllPlayers() {
         GetAllPlayersResponse response = new GetAllPlayersResponse();
         for (Player player : playerStore.getAll()) {
-            response.addPlayer(player.name);
+            response.addPlayer(player.getName());
         }
         response.reportSuccess("Got all players");
         return response;
@@ -116,6 +116,14 @@ public class GameController {
         game.stop();
         Response response = new Response();
         response.reportSuccess("Stopped the game");
+        return response;
+    }
+
+    @RequestMapping(value = "/game/status", method = RequestMethod.GET)
+    @ResponseBody
+    public GameStatusResponse gameStatus() {
+        GameStatusResponse response = ModelAdapter.coreToApi(game.getAntGame());
+        response.reportSuccess("Ok");
         return response;
     }
 }

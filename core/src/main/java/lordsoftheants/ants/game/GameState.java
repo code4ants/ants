@@ -11,47 +11,31 @@ public class GameState {
     private boolean playing;
     private int lastAntId = 0;
     private int frameNumber = 0;
+    private GameBoard board;
+    private int maxAntsPerPlayer;
+
+    public GameBoard getBoard() {
+        return board;
+    }
+
+    public void setBoard(GameBoard board) {
+        this.board = board;
+    }
 
     public boolean isPlaying() {
         return playing;
     }
 
-    public void setPlaying(boolean playing) {
+    private void setPlaying(boolean playing) {
         this.playing = playing;
-    }
-
-    public int getLastAntId() {
-        return lastAntId;
-    }
-
-    public void setLastAntId(int lastAntId) {
-        this.lastAntId = lastAntId;
     }
 
     public int getFrameNumber() {
         return frameNumber;
     }
 
-    public void setFrameNumber(int frameNumber) {
-        this.frameNumber = frameNumber;
-    }
-
-    public void reset() {
-        lastAntId = 0;
-        playing = false;
-        frameNumber = 0;
-    }
-
     public void nextFrame() {
         frameNumber++;
-    }
-
-    public boolean isFinished() {
-        return frameNumber > 2;
-    }
-
-    public int nextAntId() {
-        return lastAntId++;
     }
 
     public void startPlaying() {
@@ -61,5 +45,37 @@ public class GameState {
 
     public void stopPlaying() {
         setPlaying(false);
+    }
+
+    public boolean isFinished() {
+        return frameNumber > 20;
+    }
+
+    public int nextAntId() {
+        return lastAntId++;
+    }
+
+    private void reset() {
+        lastAntId = 0;
+        playing = false;
+        frameNumber = 0;
+    }
+
+    public List<Ant> getAntsForPlayer(Player player) {
+        List<Ant> result = new LinkedList<>();
+        for (Ant ant : ants) {
+            if (ant.getOwner() == player) {
+                result.add(ant);
+            }
+        }
+        return result;
+    }
+
+    public int getMaxAntsPerPlayer() {
+        return maxAntsPerPlayer;
+    }
+
+    public void setMaxAntsPerPlayer(int maxAntsPerPlayer) {
+        this.maxAntsPerPlayer = maxAntsPerPlayer;
     }
 }

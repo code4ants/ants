@@ -3,69 +3,75 @@ package lordsoftheants.ants.game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 /**
  * @author Adrian Scripca
  */
 @Component
 public class Game extends AbstractGame {
-
     private final GameState state = new GameState();
+
     @Autowired
     private PlayerStore playerStore;
     @Autowired
     private AntBrains antBrains;
 
-    public synchronized void start() {
-        if (state.isPlaying())
-            throw new GameException("Game already started");
+    private AntGame antGame;
 
-        System.out.println("Starting the game");
-        state.startPlaying();
+    @PostConstruct
+    public void initialize() {
+        GameBoard board = GameBoardBuilder.boardFromData(16, 16, new int[]{
+                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, GameBoard.CellType.SPAWNING_POINT_1.getValue(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+        });
+
+        state.setBoard(board);
+        state.setMaxAntsPerPlayer(1);
+        antGame = new AntGame(state, playerStore, antBrains);
+    }
+
+    public AntGame getAntGame() {
+        return antGame;
+    }
+
+    public void setAntGame(AntGame antGame) {
+        this.antGame = antGame;
+    }
+
+    public synchronized void start() {
+        antGame.start();
         startFrameRunner();
     }
 
     public synchronized void stop() {
-        if (!state.isPlaying())
-            throw new GameException("Game is not started");
-
-        System.out.println("Stopping the game");
-        state.stopPlaying();
         stopFrameRunner();
+        antGame.stop();
     }
 
     @Override
     protected void doFrame() {
-        synchronized (state) {
-            updateLivingAnts();
-            spawnNewAnts();
-            state.nextFrame();
-
-            if (state.isFinished()) {
-                stop();
-            }
-        }
-    }
-
-    private void spawnNewAnts() {
-        System.out.println("Frame: " + state.getFrameNumber() + " - spawning new ants");
-        for (Player player : playerStore.getAll()) {
-            Ant ant = new Ant();
-            ant.setId(state.nextAntId());
-            ant.setBrain(antBrains.newBrainForPlayer(player));
-            ant.setOwner(player);
-            state.ants.add(ant);
-        }
-    }
-
-    private void updateLivingAnts() {
-        System.out.println("Frame: " + state.getFrameNumber() + " - updating living ants");
-        for (Ant a : state.ants) {
-            a.think();
+        antGame.doFrame();
+        if (state.isFinished()) {
+            stop();
         }
     }
 
     public boolean isStarted() {
         return state.isPlaying();
     }
-
 }

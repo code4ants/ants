@@ -1,0 +1,38 @@
+#board {
+    float: left
+}
+
+.board-cell {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 0;
+    padding: 0;
+    background-color: gray;
+    margin-right: 1px;
+    margin-bottom: 1px;
+}
+
+.cell-x-0 {
+    clear: left;
+}
+
+.board-cell-type-0 {
+}
+
+.board-cell-type-1 {
+    background-color: black;
+}
+
+
+.board-cell-type-2 {
+}
+
+.board-cell-type-3 {
+    background-color: darkgreen;
+}
+
+.board-cell-ant-slot-0 {
+    background-color: greenyellow;
+}
+
