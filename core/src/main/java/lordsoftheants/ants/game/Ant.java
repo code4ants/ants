@@ -2,6 +2,10 @@ package lordsoftheants.ants.game;
 
 import lordsoftheants.ants.api.AntBrain;
 import lordsoftheants.ants.api.Decision;
+import lordsoftheants.ants.api.GameStatus;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Adrian Scripca
@@ -14,6 +18,7 @@ public class Ant {
     private int y;
     private int nextX;
     private int nextY;
+    private Map<String, Object> parameters = new HashMap<>();
 
     public int getNextX() {
         return nextX;
@@ -63,11 +68,11 @@ public class Ant {
         this.brain = brain;
     }
 
-    public Decision think() {
+    public Decision think(GameStatus gameStatus) {
         if (brain == null)
             throw new IllegalStateException("The ant with id " + id + " does not have a brain!");
 
-        return brain.think();
+        return brain.think(x, y, gameStatus, owner.getSlot(), owner.getParameters(), parameters);
     }
 
     public Player getOwner() {

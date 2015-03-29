@@ -2,7 +2,10 @@ package lordsoftheants.ants.game;
 
 import lordsoftheants.ants.api.AntBrain;
 import lordsoftheants.ants.api.Decision;
+import lordsoftheants.ants.api.GameStatus;
 import org.junit.Test;
+
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -32,7 +35,7 @@ public class AntGameTest {
             public AntBrain newBrainForPlayer(Player player) {
                 return new AntBrain() {
                     @Override
-                    public Decision think() {
+                    public Decision think(int currentAntX, int currentAntY, GameStatus gameStatus, int ownerSlot, Map<String, String> ownerSettings, Map<String, Object> antSettings) {
                         return Decision.GO_RIGHT;
                     }
                 };

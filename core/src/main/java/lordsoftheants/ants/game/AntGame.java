@@ -1,5 +1,6 @@
 package lordsoftheants.ants.game;
 import lordsoftheants.ants.api.Decision;
+import lordsoftheants.ants.api.GameStatus;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -134,8 +135,9 @@ public class AntGame {
     }
 
     private void makeAntsThink() {
+        lordsoftheants.ants.api.GameStatus gameStatus = ModelAdapter.coreToApiStatus(this);
         for (Ant ant : state.ants) {
-            Decision decision = ant.think();
+            Decision decision = ant.think(gameStatus);
             ant.setNextX(ant.getX());
             ant.setNextY(ant.getY());
             switch (decision) {

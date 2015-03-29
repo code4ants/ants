@@ -1,14 +1,11 @@
-package lordsoftheants.ants.api.rest;
-
-import lordsoftheants.ants.api.Board;
-import lordsoftheants.ants.api.Player;
+package lordsoftheants.ants.api;
 
 import java.util.List;
 
 /**
  * @author Adrian Scripca
  */
-public class GameStatusResponse extends Response {
+public class GameStatus {
     private Board board;
     private List<Player> players;
 

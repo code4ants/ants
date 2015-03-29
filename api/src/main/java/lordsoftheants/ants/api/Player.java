@@ -1,4 +1,4 @@
-package lordsoftheants.ants.api.rest;
+package lordsoftheants.ants.api;
 
 import java.util.List;
 

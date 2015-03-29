@@ -1,10 +1,7 @@
 package lordsoftheants.ants.web;
 
 import lordsoftheants.ants.api.rest.*;
-import lordsoftheants.ants.game.BrainStore;
-import lordsoftheants.ants.game.Game;
-import lordsoftheants.ants.game.Player;
-import lordsoftheants.ants.game.PlayerStore;
+import lordsoftheants.ants.game.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

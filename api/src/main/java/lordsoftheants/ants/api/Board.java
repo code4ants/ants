@@ -1,4 +1,4 @@
-package lordsoftheants.ants.api.rest;
+package lordsoftheants.ants.api;
 
 import java.util.List;
 
@@ -32,5 +32,9 @@ public class Board {
 
     public void setData(List<Integer> data) {
         this.data = data;
+    }
+
+    public int getAt(int x, int y) {
+        return data.get(x + y * width);
     }
 }
