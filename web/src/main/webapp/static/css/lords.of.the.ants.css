@@ -43,7 +43,7 @@ body {
     float: right;
     color: navajowhite;
     font-size: 0.8em;
-    padding-top: 0.4em;
+    padding-top: 0.8em;
 }
 
 /* -------------------------------------------------------------------------------- */
@@ -98,18 +98,33 @@ body {
 }
 
 #ladder-entry-0 {
-    color: greenyellow;
-    border-color: greenyellow;
+    color: #adff2f;
+    border-color: #adff2f;
 }
 
 #ladder-entry-1 {
-    color: indianred;
-    border-color: indianred;
+    color: #cd5c5c;
+    border-color: #cd5c5c;
 }
 
 #ladder-entry-2 {
-    color: cornflowerblue;
-    border-color: cornflowerblue;
+    color: #6495ed;
+    border-color: #6495ed;
+}
+
+#ladder-entry-3 {
+    color: #fff200;
+    border-color: #fff200;
+}
+
+#ladder-entry-4 {
+    color: #ec008c;
+    border-color: #ec008c;
+}
+
+#ladder-entry-5 {
+    color: #ff0000;
+    border-color: #ff0000;
 }
 
 /* -------------------------------------------------------------------------------- */
@@ -146,33 +161,54 @@ body {
 
 /* wall */
 .board-cell-type-2 {
+    background-image: url("../images/brickwall.png");
 }
 
 /* spawning point 1 */
 .board-cell-type-3 {
-    background-color: darkgreen;
+    background-image: url("../images/spawn1.png");
 }
-
 .board-cell-ant-slot-0 {
-    background-color: greenyellow;
-    border-radius: 50%;
+    background-image: url("../images/ant1.png");
 }
-
 
 /* spawning point 2 */
 .board-cell-type-4 {
-    background-color: darkred;
+    background-image: url("../images/spawn2.png");
 }
 .board-cell-ant-slot-1 {
-    background-color: indianred;
-    border-radius: 50%;
+    background-image: url("../images/ant2.png");
 }
 
 /* spawning point 3 */
 .board-cell-type-5 {
-    background-color: darkblue;
+    background-image: url("../images/spawn3.png");
+    /*background-color: darkblue;*/
 }
 .board-cell-ant-slot-2 {
-    background-color: cornflowerblue;
-    border-radius: 50%;
+    background-image: url("../images/ant3.png");
+}
+
+/* spawning point 4 */
+.board-cell-type-6 {
+    background-image: url("../images/spawn4.png");
+}
+.board-cell-ant-slot-3 {
+    background-image: url("../images/ant4.png");
+}
+
+/* spawning point 5 */
+.board-cell-type-7 {
+    background-image: url("../images/spawn5.png");
+}
+.board-cell-ant-slot-4 {
+    background-image: url("../images/ant5.png");
+}
+
+/* spawning point 6 */
+.board-cell-type-8 {
+    background-image: url("../images/spawn6.png");
+}
+.board-cell-ant-slot-5 {
+    background-image: url("../images/ant6.png");
 }

@@ -29,20 +29,20 @@ public class Game extends AbstractGame {
     public void initialize() {
         GameBoard board = GameBoardBuilder.boardFromData(16, 16, new int[]{
                 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                1, 0, 0, 0, 0, 0, 0, GameBoard.CellType.SPAWNING_POINT_3.getValue(), 0, 0, 0, 0, 0, 0, 0, 1,
                 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, GameBoard.CellType.WALL.getValue(), GameBoard.CellType.WALL.getValue(), 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, GameBoard.CellType.WALL.getValue(), GameBoard.CellType.WALL.getValue(), 0, 0, 0, 0, 0, 0, 0, 1,
                 1, GameBoard.CellType.SPAWNING_POINT_1.getValue(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, GameBoard.CellType.SPAWNING_POINT_2.getValue(), 1,
                 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
                 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, GameBoard.CellType.SPAWNING_POINT_6.getValue(), 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, GameBoard.CellType.WALL.getValue(), GameBoard.CellType.WALL.getValue(), 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, GameBoard.CellType.SPAWNING_POINT_5.getValue(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
                 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
                 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-                1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+                1, 0, 0, 0, 0, 0, 0, GameBoard.CellType.SPAWNING_POINT_4.getValue(), 0, 0, 0, 0, 0, 0, 0, 1,
                 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
         });
 
