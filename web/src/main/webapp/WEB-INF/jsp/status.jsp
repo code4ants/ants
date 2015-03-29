@@ -18,6 +18,11 @@
                 <div id="ladder"></div>
             </div>
             <div id="board"></div>
+            <div id="buttons-holder">
+                <a class="button" id="btnStart">Start</a>
+                <a class="button" id="btnStop">Stop</a>
+                <div id="status-holder"></div>
+            </div>
         </div>
 </body>
 </html>

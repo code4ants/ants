@@ -48,7 +48,8 @@ public class GameState {
     }
 
     public boolean isFinished() {
-        return frameNumber > 20;
+//        return frameNumber > 20;
+        return false;
     }
 
     public int nextAntId() {

@@ -33,7 +33,7 @@ var AntGame = {
                 var player = data.players[i];
 
                 if ($('#ladder-entry-' + player.slot).length > 0)
-                    $('#ladder-entry-score' + player.slot)
+                    $('#ladder-entry-score-' + player.slot)
                         .text(player.score);
                 else {
                     var $ladderHolder = $('<div>')
@@ -62,6 +62,8 @@ var AntGame = {
                 }
             }
 
+            AntGame.updateStatus(data.playing, data.currentFrame);
+
             setTimeout(function() {
                 AntGame.updateBoard();
             }, AntGame.refreshIntervalInMs);
@@ -69,6 +71,19 @@ var AntGame = {
     },
 
     initialiseBoard: function(data) {
+
+        $('#btnStart').click(function() {
+            $.post('/game/start', function(data) {
+                // do stuff
+            })
+        });
+
+        $('#btnStop').click(function() {
+            $.post('/game/stop', function(data) {
+                // do stuff
+            })
+        });
+
         AntGame.board.empty();
         var offset = 0;
         for (var y = 0; y < data.board.height; y++) {
@@ -117,5 +132,14 @@ var AntGame = {
                 $('#board-cell-' + offset).addClass('board-cell-ant-slot-' + player.slot);
             }
         }
+
+        AntGame.updateStatus(data.playing, data.currentFrame);
+    },
+
+    updateStatus: function(isPlaying, currentFrame) {
+        var status = 'Current status: <span class="strong">' + (isPlaying ? 'playing' : 'stopped') + '</span>';
+        if (isPlaying)
+            status = status + '. Current frame: <span class="strong">' + currentFrame + '</span>';
+        $('#status-holder').html(status);
     }
 }

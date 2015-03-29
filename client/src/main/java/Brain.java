@@ -3,6 +3,7 @@ import lordsoftheants.ants.api.Decision;
 import lordsoftheants.ants.api.GameStatus;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -12,6 +13,10 @@ public class Brain implements AntBrain {
 
     @Override
     public Decision think(int currentAntX, int currentAntY, GameStatus gameStatus, int ownerSlot, Map<String, String> ownerSettings, Map<String, Object> antSettings) {
+        if (Objects.equals("commitSuicide", ownerSettings.get("order"))) {
+            return Decision.GO_RIGHT;
+        }
+
         Decision decision = null;
         if (antSettings.containsKey("lastDecision")) {
             decision = (Decision) antSettings.get("lastDecision");

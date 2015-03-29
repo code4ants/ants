@@ -4,6 +4,26 @@ body {
     font-size: 12pt;
 }
 
+/* -------------------------------------------------------------------------------- */
+
+.button {
+    display: block;
+    width: 5em;
+    background-color: brown;
+    color: palegoldenrod;
+    float: left;
+    margin-right: 0.5em;
+    text-align: center;
+    cursor: pointer;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    border-radius: 2px;
+}
+
+/* -------------------------------------------------------------------------------- */
+
 #main-holder {
     display: block;
     float: left;
@@ -12,6 +32,21 @@ body {
     border-radius: 10px;
     margin-left: 20%;
 }
+
+/* -------------------------------------------------------------------------------- */
+
+.strong {
+    font-weight: bold;
+}
+
+#status-holder {
+    float: right;
+    color: navajowhite;
+    font-size: 0.8em;
+    padding-top: 0.4em;
+}
+
+/* -------------------------------------------------------------------------------- */
 
 #ladder-holder {
     float: left;

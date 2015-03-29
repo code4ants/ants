@@ -12,6 +12,7 @@ public class GameStatusResponse extends Response {
     private Board board;
     private List<Player> players;
     private boolean playing;
+    private int currentFrame;
 
     public Board getBoard() {
         return board;
@@ -35,5 +36,13 @@ public class GameStatusResponse extends Response {
 
     public void setPlaying(boolean playing) {
         this.playing = playing;
+    }
+
+    public int getCurrentFrame() {
+        return currentFrame;
+    }
+
+    public void setCurrentFrame(int currentFrame) {
+        this.currentFrame = currentFrame;
     }
 }
