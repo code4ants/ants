@@ -108,7 +108,6 @@ public class AntGame {
     }
 
     private void spawnNewAnts() {
-        System.out.println("Frame: " + state.getFrameNumber() + " - spawning new ants");
         for (Player player : playerStore.getAll()) {
             if (state.getAntsForPlayer(player).size() < state.getMaxAntsPerPlayer()) {
                 Ant ant = newAntForPlayer(player);
@@ -131,16 +130,12 @@ public class AntGame {
         ant.setX(spawningPoint.getX());
         ant.setY(spawningPoint.getY());
 
-        System.out.println("Created new ant " + ant.getId());
-
         return ant;
     }
 
     private void makeAntsThink() {
-        System.out.println("Frame: " + state.getFrameNumber() + " - updating living ants");
         for (Ant ant : state.ants) {
             Decision decision = ant.think();
-            System.out.println("Ant " + ant.getId() + " opted to " + decision);
             ant.setNextX(ant.getX());
             ant.setNextY(ant.getY());
             switch (decision) {

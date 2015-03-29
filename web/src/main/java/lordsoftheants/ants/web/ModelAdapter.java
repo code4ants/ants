@@ -25,10 +25,12 @@ public class ModelAdapter {
 
             response.getPlayers().add(player);
             for (lordsoftheants.ants.game.Ant a : game.getState().ants) {
-                Ant ant = new Ant();
-                ant.setX(a.getX());
-                ant.setY(a.getY());
-                player.getAnts().add(ant);
+                if (a.getOwner() == p) {
+                    Ant ant = new Ant();
+                    ant.setX(a.getX());
+                    ant.setY(a.getY());
+                    player.getAnts().add(ant);
+                }
             }
         }
 

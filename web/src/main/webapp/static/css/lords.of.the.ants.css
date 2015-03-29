@@ -32,7 +32,22 @@
     background-color: darkgreen;
 }
 
+.board-cell-type-4 {
+    background-color: darkred;
+}
+
+.board-cell-type-5 {
+    background-color: darkblue;
+}
+
 .board-cell-ant-slot-0 {
     background-color: greenyellow;
 }
 
+.board-cell-ant-slot-1 {
+    background-color: indianred;
+}
+
+.board-cell-ant-slot-2 {
+    background-color: cornflowerblue;
+}

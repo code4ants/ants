@@ -1,6 +1,7 @@
 var AntGame = {
     board: null,
     ladder: null,
+    refreshIntervalInMs: 100,
 
     init: function($board, $ladder) {
         AntGame.board = $board;
@@ -52,7 +53,7 @@ var AntGame = {
 
             setTimeout(function() {
                 AntGame.updateBoard();
-            }, 500);
+            }, AntGame.refreshIntervalInMs);
         })
     },
 
