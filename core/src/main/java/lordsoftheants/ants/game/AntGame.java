@@ -126,7 +126,11 @@ public class AntGame {
 
         Ant ant = new Ant();
         ant.setId(state.nextAntId());
-        ant.setBrain(antBrains.newBrainForPlayer(player));
+        try {
+            ant.setBrain(antBrains.newBrainForPlayer(player));
+        } catch (BrainLoaderException e) {
+            ant.setBrain(null);
+        }
         ant.setOwner(player);
         ant.setX(spawningPoint.getX());
         ant.setY(spawningPoint.getY());

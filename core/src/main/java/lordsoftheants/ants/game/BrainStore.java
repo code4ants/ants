@@ -34,6 +34,12 @@ public class BrainStore {
                 entries.getLast();
     }
 
+    public void removeLastEntryForPlayer(Player player) {
+        LinkedList<BrainStoreEntry> entries = store.get(player);
+        if (entries != null && !entries.isEmpty())
+            entries.removeLast();
+    }
+
     static class BrainStoreEntry {
         public byte[] byteCode;
         public Long timestamp;

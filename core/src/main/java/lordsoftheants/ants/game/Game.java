@@ -1,9 +1,12 @@
 package lordsoftheants.ants.game;
 
+import lordsoftheants.ants.api.rest.GameStatusResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * @author Adrian Scripca
@@ -18,6 +21,9 @@ public class Game extends AbstractGame {
     private AntBrains antBrains;
 
     private AntGame antGame;
+
+    private ReadWriteLock statusUpdaterLock = new ReentrantReadWriteLock();
+    private GameStatusResponse gameStatusResponse;
 
     @PostConstruct
     public void initialize() {
@@ -43,6 +49,7 @@ public class Game extends AbstractGame {
         state.setBoard(board);
         state.setMaxAntsPerPlayer(1);
         antGame = new AntGame(state, playerStore, antBrains);
+        refreshGameStateResponse();
     }
 
     public AntGame getAntGame() {
@@ -54,13 +61,25 @@ public class Game extends AbstractGame {
     }
 
     public synchronized void start() {
+        for (Player player : playerStore.getAll()) {
+            if (antBrains.newBrainForPlayer(player) == null) {
+
+            }
+        }
+
         antGame.start();
         startFrameRunner();
+        refreshGameStateResponse();
     }
 
     public synchronized void stop() {
         stopFrameRunner();
         antGame.stop();
+        refreshGameStateResponse();
+    }
+
+    public void playerJoined(Player player) {
+        refreshGameStateResponse();
     }
 
     @Override
@@ -69,9 +88,30 @@ public class Game extends AbstractGame {
         if (state.isFinished()) {
             stop();
         }
+
+        refreshGameStateResponse();
+    }
+
+    private void refreshGameStateResponse() {
+        try {
+            statusUpdaterLock.writeLock().lock();
+            gameStatusResponse = ModelAdapter.coreToApi(getAntGame());
+            gameStatusResponse.reportSuccess("Ok");
+        } finally {
+            statusUpdaterLock.writeLock().unlock();
+        }
     }
 
     public boolean isStarted() {
         return state.isPlaying();
+    }
+
+    public GameStatusResponse getGameStatusResponse() {
+        try {
+            statusUpdaterLock.readLock().lock();
+            return gameStatusResponse;
+        } finally {
+            statusUpdaterLock.readLock().unlock();
+        }
     }
 }

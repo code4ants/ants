@@ -1,7 +1,7 @@
 var AntGame = {
     board: null,
     ladder: null,
-    refreshIntervalInMs: 100,
+    refreshIntervalInMs: 333,
 
     init: function($board, $ladder) {
         AntGame.board = $board;

@@ -32,9 +32,8 @@ public class AntBrainsImpl implements AntBrains {
 
         try {
             return (AntBrain) loader.loadClass(loader.getEntry().classFqn).newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | ClassFormatError e) {
+            throw new BrainLoaderException(e.getMessage(), e);
         }
     }
 

@@ -19,6 +19,9 @@ public class GameController {
     private PlayerStore playerStore;
 
     @Autowired
+    private AntBrains antBrains;
+
+    @Autowired
     private Game game;
 
     @ExceptionHandler
@@ -49,6 +52,7 @@ public class GameController {
                     response.reportSuccess("User created.");
                     response.setToken(player.getToken());
                     response.setSlot(player.getSlot());
+                    game.playerJoined(player);
                 }
             }
         } else {
@@ -79,7 +83,13 @@ public class GameController {
         } else {
             System.out.println("Received brain bytecode with size: " + request.getBrainCode().length);
             brainStore.storeForPlayer(BrainStore.newEntry(request.getBrainCode(), request.getClassFqn()), player);
-            response.reportSuccess("Class uploaded ok");
+            try {
+                antBrains.newBrainForPlayer(player);
+                response.reportSuccess("Class uploaded ok");
+            } catch (BrainLoaderException e) {
+                brainStore.removeLastEntryForPlayer(player);
+                response.reportFailure("Failed to load class. Reason: " + e.getMessage());
+            }
         }
         return response;
     }
@@ -119,8 +129,6 @@ public class GameController {
     @RequestMapping(value = "/game/status", method = RequestMethod.GET)
     @ResponseBody
     public GameStatusResponse gameStatus() {
-        GameStatusResponse response = ModelAdapter.coreToApi(game.getAntGame());
-        response.reportSuccess("Ok");
-        return response;
+        return game.getGameStatusResponse();
     }
 }
