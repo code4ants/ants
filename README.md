@@ -1,6 +1,8 @@
 # ants
 Leave no ant behind!
 
+![screenshot](screenshots/readme_screen.png "A game in progress")
+
 ##Quick instructions
 	
 ###checkout sources
@@ -25,3 +27,4 @@ Leave no ant behind!
 	curl -X POST http://localhost:8080/game/start
 
 ###watch the game unfold in browser
+
