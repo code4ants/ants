@@ -11,6 +11,7 @@ import java.util.List;
 public class GameStatusResponse extends Response {
     private Board board;
     private List<Player> players;
+    private boolean playing;
 
     public Board getBoard() {
         return board;
@@ -26,5 +27,13 @@ public class GameStatusResponse extends Response {
 
     public void setPlayers(List<Player> players) {
         this.players = players;
+    }
+
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
     }
 }

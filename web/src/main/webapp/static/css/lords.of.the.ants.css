@@ -1,5 +1,87 @@
+body {
+    background-color: slategray;
+    font-family: sans-serif;
+    font-size: 12pt;
+}
+
+#main-holder {
+    display: block;
+    float: left;
+    background-color: black;
+    padding: 2em;
+    border-radius: 10px;
+    margin-left: 20%;
+}
+
+#ladder-holder {
+    float: left;
+    width: 14em;
+    background-color: black;
+    color: navajowhite;
+    padding: 0.5em;
+    padding-bottom: 0.8em;
+    margin-right: 2em;
+}
+
+#ladder-title {
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 100%;
+    clear: both;
+    text-align: center;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+
+#ladder {
+    float: left;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /*background-color: darkslategray;*/
+}
+
+.ladder-entry {
+    float: left;
+    width: 100%;
+    clear: left;
+    padding-top: 0.4em;
+    padding-bottom: 0.2em;
+    margin-bottom: 0.8em;
+    border-bottom: 1px solid;
+}
+
+.ladder-entry-name {
+    float: left;
+    width: 80%;
+}
+
+.ladder-entry-score {
+    float: right;
+    text-align: right;
+    width: 20%;
+}
+
+#ladder-entry-0 {
+    color: greenyellow;
+    border-color: greenyellow;
+}
+
+#ladder-entry-1 {
+    color: indianred;
+    border-color: indianred;
+}
+
+#ladder-entry-2 {
+    color: cornflowerblue;
+    border-color: cornflowerblue;
+}
+
+/* -------------------------------------------------------------------------------- */
+
 #board {
-    float: left
+    float: left;
+    background-color: #222222;
 }
 
 .board-cell {
@@ -11,43 +93,51 @@
     background-color: gray;
     margin-right: 1px;
     margin-bottom: 1px;
+    border-radius: 0px;
 }
 
 .cell-x-0 {
     clear: left;
 }
 
+/* empty */
 .board-cell-type-0 {
 }
 
+/* border */
 .board-cell-type-1 {
-    background-color: black;
+    background-color: #333333;
 }
 
-
+/* wall */
 .board-cell-type-2 {
 }
 
+/* spawning point 1 */
 .board-cell-type-3 {
     background-color: darkgreen;
 }
 
+.board-cell-ant-slot-0 {
+    background-color: greenyellow;
+    border-radius: 50%;
+}
+
+
+/* spawning point 2 */
 .board-cell-type-4 {
     background-color: darkred;
 }
+.board-cell-ant-slot-1 {
+    background-color: indianred;
+    border-radius: 50%;
+}
 
+/* spawning point 3 */
 .board-cell-type-5 {
     background-color: darkblue;
 }
-
-.board-cell-ant-slot-0 {
-    background-color: greenyellow;
-}
-
-.board-cell-ant-slot-1 {
-    background-color: indianred;
-}
-
 .board-cell-ant-slot-2 {
     background-color: cornflowerblue;
+    border-radius: 50%;
 }

@@ -16,6 +16,7 @@ public class ModelAdapter {
 
     public static GameStatusResponse coreToApi(AntGame game) {
         GameStatusResponse response = new GameStatusResponse();
+        response.setPlaying(game.getState().isPlaying());
         response.setPlayers(new LinkedList<Player>());
         for (lordsoftheants.ants.game.Player p : game.getPlayerStore().getAll()) {
             Player player = new Player();

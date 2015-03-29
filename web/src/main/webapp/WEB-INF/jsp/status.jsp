@@ -12,7 +12,12 @@
     </script>
 </head>
 <body>
-        <div id="board"></div>
-        <div id="ladder"></div>
+        <div id="main-holder">
+            <div id="ladder-holder">
+                <div id="ladder-title">Ladder</div>
+                <div id="ladder"></div>
+            </div>
+            <div id="board"></div>
+        </div>
 </body>
 </html>

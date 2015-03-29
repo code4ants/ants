@@ -33,16 +33,27 @@ var AntGame = {
                 var player = data.players[i];
 
                 if ($('#ladder-entry-' + player.slot).length > 0)
-                    $('#ladder-entry-' + player.slot)
-                        .text(player.name + "(" + player.score + ")");
-                else
-                    $('<div>')
+                    $('#ladder-entry-score' + player.slot)
+                        .text(player.score);
+                else {
+                    var $ladderHolder = $('<div>')
                         .attr('id', 'ladder-entry-' + player.slot)
                         .addClass('ladder-entry')
                         .addClass('ladder-entry-slot-' + player.slot)
-                        .text(player.name + "(" + player.score + ")")
                         .appendTo(AntGame.ladder);
 
+                    $('<div>')
+                        .attr('id', 'ladder-entry-name-' + player.slot)
+                        .addClass('ladder-entry-name')
+                        .text(player.name)
+                        .appendTo($ladderHolder);
+
+                    $('<div>')
+                        .attr('id', 'ladder-entry-score-' + player.slot)
+                        .addClass('ladder-entry-score')
+                        .text(player.score)
+                        .appendTo($ladderHolder);
+                }
 
                 for (var j in player.ants) {
                     var ant = player.ants[j];
@@ -82,12 +93,23 @@ var AntGame = {
         for (var i in data.players) {
             var player = data.players[i];
 
-            $('<div>')
+            var $ladderHolder = $('<div>')
                 .attr('id', 'ladder-entry-' + player.slot)
                 .addClass('ladder-entry')
                 .addClass('ladder-entry-slot-' + player.slot)
-                .text(player.name + "(" + player.score + ")")
                 .appendTo(AntGame.ladder);
+
+            $('<div>')
+                .attr('id', 'ladder-entry-name-' + player.slot)
+                .addClass('ladder-entry-name')
+                .text(player.name)
+                .appendTo($ladderHolder);
+
+            $('<div>')
+                .attr('id', 'ladder-entry-score-' + player.slot)
+                .addClass('ladder-entry-score')
+                .text(player.score)
+                .appendTo($ladderHolder);
 
             for (var j in player.ants) {
                 var ant = player.ants[j];
