@@ -1,25 +1,38 @@
 package lordsoftheants.ants.api;
 
+import lordsoftheants.ants.api.observables.ObservablePlayer;
+
+import java.util.Collection;
+
 /**
  * @author Adrian Scripca
+ * @author Bogdan Mocanu
  */
-public class Ant {
-    private int x;
-    private int y;
+public abstract class Ant {
 
-    public int getX() {
-        return x;
+    protected final World world;
+
+    protected final Team team;
+
+    protected final Player master;
+
+    protected final Collection<ObservablePlayer> otherMasters;
+
+    protected int x;
+
+    protected int y;
+
+    protected int hp;
+
+    protected Ant(AntGeneticMaterial geneticMaterial) {
+        this.world = geneticMaterial.world;
+        this.team = geneticMaterial.team;
+        this.master = geneticMaterial.master;
+        this.otherMasters = geneticMaterial.otherMasters;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
+    protected abstract void think();
 
-    public int getY() {
-        return y;
-    }
+    protected abstract AntAction act();
 
-    public void setY(int y) {
-        this.y = y;
-    }
 }

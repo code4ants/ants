@@ -1,5 +1,6 @@
 package lordsoftheants.ants.game;
 
+import lordsoftheants.ants.api.AntShell;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -12,7 +13,7 @@ public class GameBoardTest {
 
     @Test
     public void testRemoveAfterAdd() {
-        Ant ant = new Ant();
+        AntShell ant = new AntShell();
 
         GameBoard board = new GameBoard(3, 3);
         board.get(1, 1).add(ant);

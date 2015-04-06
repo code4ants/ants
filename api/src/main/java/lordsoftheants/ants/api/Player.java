@@ -1,45 +1,13 @@
 package lordsoftheants.ants.api;
 
-import java.util.List;
-
 /**
  * @author Adrian Scripca
+ * @author Bogdan Mocanu
  */
-public class Player {
-    private String name;
-    private int slot;
-    private int score;
-    private List<Ant> ants;
+public interface Player {
 
-    public String getName() {
-        return name;
-    }
+    String getName();
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    int getScore();
 
-    public int getSlot() {
-        return slot;
-    }
-
-    public void setSlot(int slot) {
-        this.slot = slot;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public List<Ant> getAnts() {
-        return ants;
-    }
-
-    public void setAnts(List<Ant> ants) {
-        this.ants = ants;
-    }
 }

@@ -1,5 +1,7 @@
 package lordsoftheants.ants.game;
 
+import lordsoftheants.ants.api.AntShell;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,7 +9,7 @@ import java.util.List;
  * @author Adrian Scripca
  */
 public class GameState {
-    public List<Ant> ants = new LinkedList<>();
+    public List<AntShell> antShells = new LinkedList<>();
     private boolean playing;
     private int lastAntId = 0;
     private int frameNumber = 0;
@@ -62,9 +64,9 @@ public class GameState {
         frameNumber = 0;
     }
 
-    public List<Ant> getAntsForPlayer(Player player) {
-        List<Ant> result = new LinkedList<>();
-        for (Ant ant : ants) {
+    public List<AntShell> getAntsForPlayer(Player player) {
+        List<AntShell> result = new LinkedList<>();
+        for (AntShell ant : antShells) {
             if (ant.getOwner() == player) {
                 result.add(ant);
             }

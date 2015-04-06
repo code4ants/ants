@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class GameController {
 
     @Autowired
-    private BrainStore brainStore;
+    private AntStore antStore;
 
     @Autowired
     private PlayerStore playerStore;
@@ -82,12 +82,12 @@ public class GameController {
             response.reportFailure("Unknown token");
         } else {
             System.out.println("Received brain bytecode with size: " + request.getBrainCode().length);
-            brainStore.storeForPlayer(BrainStore.newEntry(request.getBrainCode(), request.getClassFqn()), player);
+            antStore.storeForPlayer(AntStore.newEntry(request.getBrainCode(), request.getClassFqn()), player);
             try {
                 antBrains.newBrainForPlayer(player);
                 response.reportSuccess("Class uploaded ok");
-            } catch (BrainLoaderException e) {
-                brainStore.removeLastEntryForPlayer(player);
+            } catch (AntLoaderException e) {
+                antStore.removeLastEntryForPlayer(player);
                 response.reportFailure("Failed to load class. Reason: " + e.getMessage());
             }
         }

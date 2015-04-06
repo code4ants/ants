@@ -1,5 +1,7 @@
 package lordsoftheants.ants.game;
 
+import lordsoftheants.ants.api.AntShell;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -91,7 +93,7 @@ public class GameBoard {
 
     public static class Cell {
         public CellType type = CellType.EMPTY;
-        public List<Ant> ants = new LinkedList<>();
+        public List<AntShell> ants = new LinkedList<>();
         public int x;
         public int y;
 
@@ -116,15 +118,15 @@ public class GameBoard {
             this.type = type;
         }
 
-        public void add(Ant ant) {
+        public void add(AntShell ant) {
             ants.add(ant);
         }
 
-        public void remove(Ant ant) {
+        public void remove(AntShell ant) {
             ants.remove(ant);
         }
 
-        public List<Ant> getAnts() {
+        public List<AntShell> getAnts() {
             return ants;
         }
     }

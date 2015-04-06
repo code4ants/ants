@@ -3,16 +3,16 @@ package lordsoftheants.ants.game;
 /**
  * @author Adrian Scripca
  */
-public class BrainLoader extends ClassLoader {
+public class AntLoader extends ClassLoader {
 
-    private BrainStore.BrainStoreEntry entry;
+    private AntStore.AntStoreEntry entry;
 
-    public BrainLoader(BrainStore.BrainStoreEntry entry, ClassLoader parent) {
+    public AntLoader(AntStore.AntStoreEntry entry, ClassLoader parent) {
         super(parent);
         this.entry = entry;
     }
 
-    public BrainStore.BrainStoreEntry getEntry() {
+    public AntStore.AntStoreEntry getEntry() {
         return entry;
     }
 
@@ -26,6 +26,7 @@ public class BrainLoader extends ClassLoader {
         }
     }
 
+    @SuppressWarnings("unused")
     private byte[] loadClassData(String name) {
         return entry.byteCode;
     }

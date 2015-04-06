@@ -10,16 +10,16 @@ import java.util.Map;
  * @author Adrian Scripca
  */
 @Component
-public class BrainStore {
+public class AntStore {
 
-    private Map<Player, LinkedList<BrainStoreEntry>> store = new LinkedHashMap<>();
+    private Map<Player, LinkedList<AntStoreEntry>> store = new LinkedHashMap<>();
 
-    public static BrainStoreEntry newEntry(byte[] byteCode, String classFqn) {
-        return new BrainStoreEntry(byteCode, classFqn);
+    public static AntStoreEntry newEntry(byte[] byteCode, String classFqn) {
+        return new AntStoreEntry(byteCode, classFqn);
     }
 
-    public void storeForPlayer(BrainStoreEntry entry, Player player) {
-        LinkedList<BrainStoreEntry> entries = store.get(player);
+    public void storeForPlayer(AntStoreEntry entry, Player player) {
+        LinkedList<AntStoreEntry> entries = store.get(player);
         if (entries == null) {
             entries = new LinkedList<>();
             store.put(player, entries);
@@ -27,25 +27,25 @@ public class BrainStore {
         entries.add(entry);
     }
 
-    public BrainStoreEntry getLastEntryForPlayer(Player player) {
-        LinkedList<BrainStoreEntry> entries = store.get(player);
+    public AntStoreEntry getLastEntryForPlayer(Player player) {
+        LinkedList<AntStoreEntry> entries = store.get(player);
         return entries == null || entries.isEmpty() ?
                 null :
                 entries.getLast();
     }
 
     public void removeLastEntryForPlayer(Player player) {
-        LinkedList<BrainStoreEntry> entries = store.get(player);
+        LinkedList<AntStoreEntry> entries = store.get(player);
         if (entries != null && !entries.isEmpty())
             entries.removeLast();
     }
 
-    static class BrainStoreEntry {
+    static class AntStoreEntry {
         public byte[] byteCode;
         public Long timestamp;
         public String classFqn;
 
-        public BrainStoreEntry(byte[] byteCode, String classFqn) {
+        public AntStoreEntry(byte[] byteCode, String classFqn) {
             this.byteCode = byteCode;
             this.classFqn = classFqn;
             this.timestamp = System.currentTimeMillis();

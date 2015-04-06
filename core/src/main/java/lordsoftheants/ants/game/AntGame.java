@@ -1,6 +1,7 @@
 package lordsoftheants.ants.game;
-import lordsoftheants.ants.api.Decision;
-import lordsoftheants.ants.api.GameStatus;
+
+import lordsoftheants.ants.api.AntAction;
+import lordsoftheants.ants.api.AntShell;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -15,12 +16,12 @@ public class AntGame {
 
     private PlayerStore playerStore;
 
-    private AntBrains antBrains;
+    private AntFactory antFactory;
 
-    public AntGame(GameState state, PlayerStore playerStore, AntBrains antBrains) {
+    public AntGame(GameState state, PlayerStore playerStore, AntFactory antFactory) {
         this.state = state;
         this.playerStore = playerStore;
-        this.antBrains = antBrains;
+        this.antFactory = antFactory;
     }
 
     public GameState getState() {
@@ -29,10 +30,6 @@ public class AntGame {
 
     public PlayerStore getPlayerStore() {
         return playerStore;
-    }
-
-    public AntBrains getAntBrains() {
-        return antBrains;
     }
 
     public void start() {
@@ -56,12 +53,11 @@ public class AntGame {
     }
 
     private void moveAntsToTheirDesiredTarget() {
-        for (Ant ant : state.ants) {
-            state.getBoard().get(ant.getX(), ant.getY()).remove(ant);
-            state.getBoard().get(ant.getNextX(), ant.getNextY()).add(ant);
-            ant.setX(ant.getNextX());
-            ant.setY(ant.getNextY());
-
+        for (AntShell antShell : state.antShells) {
+            state.getBoard().get(antShell.x, antShell.y).remove(antShell);
+            state.getBoard().get(antShell.nextX, antShell.nextY).add(antShell);
+            antShell.x = antShell.nextX;
+            antShell.y = antShell.nextY;
         }
     }
 
@@ -70,16 +66,16 @@ public class AntGame {
             for (int x = 0; x < state.getBoard().getWidth(); x++) {
                 GameBoard.Cell cell = state.getBoard().get(x, y);
                 if (!cell.getAnts().isEmpty()) {
-                    List<Ant> ants = new LinkedList<>(cell.getAnts());
+                    List<AntShell> ants = new LinkedList<>(cell.getAnts());
                     switch (cell.getType()) {
                         case BORDER:
-                            for (Ant ant : ants) {
+                            for (AntShell ant : ants) {
                                 ant.getOwner().addToScore(-1);
                                 killAnt(ant);
                             }
                             break;
                         case WALL:
-                            for (Ant ant : ants) {
+                            for (AntShell ant : ants) {
                                 ant.getOwner().addToScore(-1);
                                 killAnt(ant);
                                 cell.setType(GameBoard.CellType.EMPTY);
@@ -87,11 +83,11 @@ public class AntGame {
                             break;
                         case EMPTY:
                             Set<Player> antMastersInThisCell = new HashSet<>();
-                            for (Ant ant : ants) {
+                            for (AntShell ant : ants) {
                                 antMastersInThisCell.add(ant.getOwner());
                             }
                             if (antMastersInThisCell.size() > 1) {
-                                for (Ant ant : ants) {
+                                for (AntShell ant : ants) {
                                     ant.getOwner().addToScore(-1);
                                     killAnt(ant);
                                 }
@@ -103,61 +99,73 @@ public class AntGame {
         }
     }
 
-    private void killAnt(Ant ant) {
-        state.getBoard().get(ant.getX(), ant.getY()).remove(ant);
-        state.ants.remove(ant);
+    private void killAnt(AntShell antShell) {
+        state.getBoard().get(antShell.x, antShell.y).remove(antShell);
+        state.antShells.remove(antShell);
     }
 
     private void spawnNewAnts() {
         for (Player player : playerStore.getAll()) {
             if (state.getAntsForPlayer(player).size() < state.getMaxAntsPerPlayer()) {
-                Ant ant = newAntForPlayer(player);
-                state.getBoard().get(ant.getX(), ant.getY()).add(ant);
-                state.ants.add(ant);
+                AntShell antShell = newAntForPlayer(player);
+                state.getBoard().get(antShell.x, antShell.y).add(antShell);
+                state.antShells.add(antShell);
             }
         }
     }
 
-    private Ant newAntForPlayer(Player player) {
+    private AntShell newAntForPlayer(Player player) {
         GameBoard.Cell spawningPoint = state.getBoard().getSpawingPointForPlayerSlot(player.getSlot());
         if (spawningPoint == null) {
             throw new GameException("Failed to retrieve spawning point for player with slot " + player.getSlot());
         }
 
-        Ant ant = new Ant();
-        ant.setId(state.nextAntId());
+        AntShell antShell = new AntShell();
+        antShell.setId(state.nextAntId());
         try {
-            ant.setBrain(antBrains.newBrainForPlayer(player));
-        } catch (BrainLoaderException e) {
-            ant.setBrain(null);
+            antShell.ant = antFactory.newAntForPlayer(player);
+        } catch (AntLoaderException e) {
+            antShell.ant = null;
         }
-        ant.setOwner(player);
-        ant.setX(spawningPoint.getX());
-        ant.setY(spawningPoint.getY());
+        antShell.setOwner(player);
+        antShell.x = spawningPoint.getX();
+        antShell.y = spawningPoint.getY();
 
-        return ant;
+        return antShell;
     }
 
     private void makeAntsThink() {
-        lordsoftheants.ants.api.GameStatus gameStatus = ModelAdapter.coreToApiStatus(this);
-        for (Ant ant : state.ants) {
-            Decision decision = ant.think(gameStatus);
-            ant.setNextX(ant.getX());
-            ant.setNextY(ant.getY());
-            switch (decision) {
+        // Ants think!
+        for (AntShell antShell : state.antShells) {
+            antShell.think();
+        }
+
+        // Ants act!!!
+        for (AntShell antShell : state.antShells) {
+            AntAction antAction = antShell.act();
+
+            antShell.nextX = antShell.x;
+            antShell.nextY = antShell.y;
+            switch (antAction) {
                 case GO_LEFT:
-                    ant.setNextX(ant.getX() - 1);
+                    antShell.nextX = antShell.x - 1;
                     break;
                 case GO_RIGHT:
-                    ant.setNextX(ant.getX() + 1);
+                    antShell.nextX = antShell.x + 1;
                     break;
                 case GO_UP:
-                    ant.setNextY(ant.getY() - 1);
+                    antShell.nextY = antShell.y - 1;
                     break;
                 case GO_DOWN:
-                    ant.setNextY(ant.getY() + 1);
+                    antShell.nextY = antShell.y + 1;
                     break;
+                case SUICIDE:
+                    // no code here
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown ant action: " + antAction);
             }
+
         }
     }
 }

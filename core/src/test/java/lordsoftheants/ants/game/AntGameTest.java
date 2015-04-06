@@ -1,7 +1,7 @@
 package lordsoftheants.ants.game;
 
 import lordsoftheants.ants.api.AntBrain;
-import lordsoftheants.ants.api.Decision;
+import lordsoftheants.ants.api.AntAction;
 import lordsoftheants.ants.api.GameStatus;
 import org.junit.Test;
 
@@ -35,8 +35,8 @@ public class AntGameTest {
             public AntBrain newBrainForPlayer(Player player) {
                 return new AntBrain() {
                     @Override
-                    public Decision think(int currentAntX, int currentAntY, GameStatus gameStatus, int ownerSlot, Map<String, String> ownerSettings, Map<String, Object> antSettings) {
-                        return Decision.GO_RIGHT;
+                    public AntAction think(int currentAntX, int currentAntY, GameStatus gameStatus, int ownerSlot, Map<String, String> ownerSettings, Map<String, Object> antSettings) {
+                        return AntAction.GO_RIGHT;
                     }
                 };
             }

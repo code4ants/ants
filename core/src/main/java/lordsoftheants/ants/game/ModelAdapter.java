@@ -1,11 +1,11 @@
 package lordsoftheants.ants.game;
 
 import lordsoftheants.ants.api.Ant;
+import lordsoftheants.ants.api.AntShell;
 import lordsoftheants.ants.api.Board;
 import lordsoftheants.ants.api.GameStatus;
 import lordsoftheants.ants.api.rest.GameStatusResponse;
 import lordsoftheants.ants.api.Player;
-import lordsoftheants.ants.game.AntGame;
 
 import java.util.LinkedList;
 
@@ -27,7 +27,7 @@ public class ModelAdapter {
             player.setAnts(new LinkedList<Ant>());
 
             response.getPlayers().add(player);
-            for (lordsoftheants.ants.game.Ant a : game.getState().ants) {
+            for (AntShell a : game.getState().antShells) {
                 if (a.getOwner() == p) {
                     Ant ant = new Ant();
                     ant.setX(a.getX());
@@ -64,7 +64,7 @@ public class ModelAdapter {
             player.setAnts(new LinkedList<Ant>());
 
             result.getPlayers().add(player);
-            for (lordsoftheants.ants.game.Ant a : game.getState().ants) {
+            for (AntShell a : game.getState().antShells) {
                 if (a.getOwner() == p) {
                     Ant ant = new Ant();
                     ant.setX(a.getX());

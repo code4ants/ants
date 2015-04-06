@@ -33,16 +33,15 @@ public class Client {
         request.setKey(key);
         request.setValue(value);
 
-        HttpResponse<String> httpResponse = null;
+        HttpResponse<String> httpResponse;
         try {
             httpResponse = Unirest.post(config.getServerUrl() + "/parameter")
                     .header("Content-Type", "application/json")
                     .body(toJson(request))
                     .asString();
             SetParameterResponse response = fromJson(httpResponse.getBody(), SetParameterResponse.class);
-            if (response != null && response.isSuccess()) {
-            } else {
-                throw new ClientException("Failed to set parameter. Reason: " + response == null ? "None" : response.getDescription());
+            if (response == null || !response.isSuccess()) {
+                throw new ClientException("Failed to set parameter. Reason: " + (response == null ? "None" : response.getDescription()));
             }
         } catch (UnirestException e) {
             e.printStackTrace();
@@ -71,7 +70,7 @@ public class Client {
                 config.setToken(response.getToken());
                 config.save();
             } else {
-                throw new ClientException("Failed to perform login. Reason: " + response == null ? "None" : response.getDescription());
+                throw new ClientException("Failed to perform login. Reason: " + (response == null ? "None" : response.getDescription()));
             }
         } catch (UnirestException e) {
             throw new ClientException("Failed to perform login. Reason: " + e.getMessage());
@@ -93,16 +92,15 @@ public class Client {
         request.setClassFqn(config.getClassFqn());
         request.setBrainCode(getFileBytes(config.getClassPath()));
 
-        HttpResponse<String> httpResponse = null;
+        HttpResponse<String> httpResponse;
         try {
             httpResponse = Unirest.put(config.getServerUrl() + "/brain")
                     .header("Content-Type", "application/json")
                     .body(toJson(request))
                     .asString();
             UploadBrainResponse response = fromJson(httpResponse.getBody(), UploadBrainResponse.class);
-            if (response != null && response.isSuccess()) {
-            } else {
-                throw new ClientException("Failed to upload brain. Reason: " + response == null ? "None" : response.getDescription());
+            if (response == null || !response.isSuccess()) {
+                throw new ClientException("Failed to upload brain. Reason: " + (response == null ? "None" : response.getDescription()));
             }
         } catch (UnirestException e) {
             e.printStackTrace();
