@@ -3,19 +3,19 @@ Leave no ant behind!
 
 ![screenshot](screenshots/readme_screen.png "A game in progress")
 
-##Quick instructions
+## Quick instructions
 	
-###checkout sources
+### checkout sources
 	git clone git@github.com:lordsoftheants/ants.git
 
-###build
+### build
 	mvn clean install
 	deploy web/war to tomcat
 
-###fire up browser and go to http://localhost:8080
+### fire up browser and go to http://localhost:8080
 	google-chrome http://localhost:8080
 
-###build client and register
+### build client and register
 	cd client
 	mvn assembly:single
 	
@@ -23,8 +23,8 @@ Leave no ant behind!
 	./ant-client -a login
 	./ant-client -a upload
 	
-###start the game
+### start the game
 	curl -X POST http://localhost:8080/game/start
 
-###watch the game unfold in browser
+### watch the game unfold in browser
 
