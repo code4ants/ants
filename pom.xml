@@ -18,7 +18,7 @@
 
     <properties>
         <spring.version>4.0.5.RELEASE</spring.version>
-        <commons-io.version>2.6</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <commons-cli.version>1.4</commons-cli.version>
         <commons-lang.version>3.9</commons-lang.version>
         <jackson.version>2.10.0</jackson.version>
